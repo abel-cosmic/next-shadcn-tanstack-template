@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowUp } from "lucide-react";
 import { useState } from "react";
+import logo from "../../public/logo.svg";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const genres = [
   "Fantasy",
@@ -40,10 +43,17 @@ export default function Home() {
       prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
     );
   };
+  const { toast } = useToast();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen font-[family-name:var(--font-geist-sans)] p-4">
-      <h1 className="text-3xl font-bold mb-6">Your AI Powered Book Search</h1>
+    <div className="flex flex-col items-center justify-center gap-2 min-h-screen font-[family-name:var(--font-geist-sans)] p-4">
+      <div className="flex flex-col items-center justify-center p-4">
+        <div className="flex flex-row gap-2 items-center justify-center">
+          <img src={logo.src} className="w-24 h-24" />
+          <p className="text-3xl font-semibold italic leading-snug">Super Search</p>
+        </div>
+       
+      </div>
 
       <div className="relative w-full max-w-3xl flex flex-row items-center gap-4 justify-center mb-6">
         <Textarea
@@ -55,11 +65,20 @@ export default function Home() {
             textarea.style.height = `${textarea.scrollHeight}px`;
           }}
         />
-        <Button size="icon" className="absolute right-2 rounded-full">
+        <Button
+          size="icon"
+          className="absolute right-2 rounded-full"
+          onClick={() => {
+            toast({
+              title: "demo title",
+              description: "this is a demo description",
+            });
+          }}
+        >
           <ArrowUp />
         </Button>
       </div>
-
+      
       <div className="w-full max-w-3xl">
         <div className="flex flex-wrap gap-2 justify-center">
           {shuffledGenres.map((genre) => (
@@ -74,6 +93,13 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <p className="text-xs text-zinc-400 w-[45rem] text-center text-wrap">
+          Lightning-fast book search powered by vector space modeling for
+          enhanced metadata discovery. Find books instantly by title, author,
+          genre, or even similar content patterns. Experience AI-driven search
+          that understands context.
+        </p>
+
     </div>
   );
 }

@@ -1,3 +1,6 @@
+import { ModeToggle } from "@/components/toogle/theme";
+import { ToastProvider } from "@/components/ui/toast";
+import { Toaster } from "@/components/ui/toaster";
 import { ReactQueryClientProvider } from "@/utils/providers/tanstack";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         <ReactQueryClientProvider>
           <ThemeProvider
@@ -37,7 +40,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main>{children}</main>
+            <ToastProvider>
+              <Toaster  />
+              <ModeToggle />
+              <main>{children}</main>
+            </ToastProvider>
           </ThemeProvider>
         </ReactQueryClientProvider>
       </body>

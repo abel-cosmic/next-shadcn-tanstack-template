@@ -1,6 +1,5 @@
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import "./globals.css";
 
 export default function RootLayout({
   children,
